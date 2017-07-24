@@ -107,16 +107,16 @@ public class MainActivity extends AppCompatActivity
     public void replaceContentFragment(int containerViewId, Fragment fragment,boolean isAddedToBackStack){
         getSupportFragmentManager().popBackStack();
         if (isAddedToBackStack) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(containerViewId, fragment)
-                    .addToBackStack(null)
-                    .commit();
+            getSupportFragmentManager().
+                    beginTransaction().
+                    replace(containerViewId, fragment).
+                    addToBackStack(null).
+                    commit();
         }else {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(containerViewId, fragment)
-                    .commit();
+            getSupportFragmentManager().
+                    beginTransaction().
+                    replace(containerViewId, fragment).
+                    commit();
         }
     }
 }

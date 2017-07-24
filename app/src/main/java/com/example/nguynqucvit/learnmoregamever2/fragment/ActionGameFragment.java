@@ -20,6 +20,7 @@ import java.util.ArrayList;
 public class ActionGameFragment extends Fragment {
     public static final String ACTION_LINK = "https://linkneverdie.com/f1/Action-Games/?page=";
     public static final int ACTION_ID = 1;
+
     private ArrayList<ItemGame> arrItemGame = new ArrayList<>();
     private ContentLoadingProgressBar mProgressBar;
     private GameRecyclerViewAdapter gameRecyclerViewAdapter;
@@ -57,8 +58,9 @@ public class ActionGameFragment extends Fragment {
 
     void initViews(View view) {
         mProgressBar = view.findViewById(R.id.contentLoadingProgressBar);
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+
         gameRecyclerViewAdapter = new GameRecyclerViewAdapter(arrItemGame);
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setAdapter(gameRecyclerViewAdapter);
         RecyclerView.ItemDecoration decoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(decoration);

@@ -43,16 +43,19 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        initViews(view);
+        return view;
+    }
+    void initViews(View view){
         ViewPager viewPager = view.findViewById(R.id.viewPager);
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getFragmentManager());
         viewPager.setAdapter(viewPagerAdapter);
         viewPager.setOffscreenPageLimit(5);
+
         TabLayout tabLayout = view.findViewById(R.id.tabLayout);
         tabLayout.setTabTextColors(Color.WHITE,Color.WHITE);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setupWithViewPager(viewPager);
-        return view;
     }
-
 
 }

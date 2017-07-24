@@ -40,6 +40,7 @@ public class JsoupParserAsyncTask extends AsyncTask<String, ArrayList<ItemGame>,
                 views = views.substring(views.lastIndexOf(" ")+1,views.length());
                 String date = elementDes.text().replace(type,"").replace(name,"").trim().replace(views,"").trim();
                 String detailsUrl = "https://linkneverdie.com" + elementImage.select("a").attr("href").trim();
+
                 ItemGame itemGame = new ItemGame(0,imageUrl,name,type,date,views,detailsUrl);
                 arrItemGame.add(itemGame);
             }
