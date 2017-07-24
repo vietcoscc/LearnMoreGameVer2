@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">LearnMoreGameVer2</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="string_game_type_1">Action</string>
+    <string name="string_game_type_2">OpenWorld</string>
+    <string name="string_game_type_3">Survival</string>
+    <string name="string_game_type_4">FPS</string>
+    <string name="string_game_type_5">TPS</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
