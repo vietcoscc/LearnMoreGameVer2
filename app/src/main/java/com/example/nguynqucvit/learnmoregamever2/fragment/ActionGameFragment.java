@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -47,6 +48,8 @@ public class ActionGameFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_action_game, container, false);
+        final ContentLoadingProgressBar contentLoadingProgressBar = view.findViewById(R.id.contentLoadingProgressBar);
+        contentLoadingProgressBar.show();
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         final ArrayList<ItemGame> arrItemGame = new ArrayList<>();
         final GameRecyclerViewAdapter gameRecyclerViewAdapter = new GameRecyclerViewAdapter(arrItemGame);
@@ -54,6 +57,7 @@ public class ActionGameFragment extends Fragment {
         RecyclerView.ItemDecoration decoration  = new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(decoration);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+
         JsoupParserAsyncTask jsoupParserAsyncTask = new JsoupParserAsyncTask();
         jsoupParserAsyncTask.setOnCompleteParsingListener(new JsoupParserAsyncTask.OnCompleteParsingListener() {
             @Override
@@ -61,6 +65,7 @@ public class ActionGameFragment extends Fragment {
                 arrItemGame.clear();
                 arrItemGame.addAll(itemGames);
                 gameRecyclerViewAdapter.notifyDataSetChanged();
+                contentLoadingProgressBar.hide();
             }
         });
         jsoupParserAsyncTask.execute(ACTION_LINK+"1");

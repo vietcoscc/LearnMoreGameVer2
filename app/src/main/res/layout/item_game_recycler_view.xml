@@ -7,12 +7,12 @@
     android:paddingTop="5dp">
 
     <ImageView
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:id="@+id/ivImage"
-        android:layout_width="100dp"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:adjustViewBounds="true"
-        android:scaleType="centerInside" />
+        android:scaleType="fitStart" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,49 +28,49 @@
             android:singleLine="true" />
 
         <TextView
+            style="?android:attr/textAppearanceSmall"
             android:id="@+id/tvType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:singleLine="true" />
+            android:maxLines="2" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:weightSum="3">
 
             <ImageView
-                android:tint="@color/colorPrimary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:scaleType="centerInside"
-                android:src="@drawable/ic_date_range_black_24dp" />
+                android:src="@drawable/ic_date_range_black_24dp"
+                android:tint="@color/colorPrimary" />
 
             <TextView
-                style="?android:attr/textAppearanceSmall"
                 android:id="@+id/tvDate"
+                style="?android:attr/textAppearanceSmall"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="2" />
 
             <ImageView
-                android:tint="@color/colorPrimary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:scaleType="centerInside"
-                android:src="@drawable/ic_views" />
+                android:src="@drawable/ic_views"
+                android:tint="@color/colorPrimary" />
 
             <TextView
-                style="?android:attr/textAppearanceSmall"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:id="@+id/tvViews"
+                style="?android:attr/textAppearanceSmall"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:singleLine="true" />
 
             <ImageView
                 android:id="@+id/popupMenu"

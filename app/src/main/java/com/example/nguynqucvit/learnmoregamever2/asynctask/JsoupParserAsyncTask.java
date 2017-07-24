@@ -34,9 +34,9 @@ public class JsoupParserAsyncTask extends AsyncTask<String, ArrayList<ItemGame>,
                 Element elementDes = elementsDes.get(i);
                 String name = elementDes.select("h3").select("a").text().trim();
                 String type = elementDes.select("h5").text().trim();
-                String date = elementDes.text().replace(type,"").replace(name,"").trim();
-                date = date.substring(date.lastIndexOf(" ")+1,date.length());
-                String views = elementDes.text().replace(type,"").replace(name,"").trim().replace(date,"").trim();
+                String views = elementDes.text().replace(type,"").replace(name,"").trim();
+                views = views.substring(views.lastIndexOf(" ")+1,views.length());
+                String date = elementDes.text().replace(type,"").replace(name,"").trim().replace(views,"").trim();
                 String detailsUrl = "https://linkneverdie.com" + elementImage.select("a").attr("href").trim();
                 Log.i(TAG, imageUrl);
                 Log.i(TAG, name);

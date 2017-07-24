@@ -1,6 +1,8 @@
 package com.example.nguynqucvit.learnmoregamever2.fragment;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -44,7 +46,9 @@ public class HomeFragment extends Fragment {
         ViewPager viewPager = view.findViewById(R.id.viewPager);
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getFragmentManager());
         viewPager.setAdapter(viewPagerAdapter);
+        viewPager.setOffscreenPageLimit(5);
         TabLayout tabLayout = view.findViewById(R.id.tabLayout);
+        tabLayout.setTabTextColors(Color.WHITE,Color.WHITE);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setupWithViewPager(viewPager);
         return view;
