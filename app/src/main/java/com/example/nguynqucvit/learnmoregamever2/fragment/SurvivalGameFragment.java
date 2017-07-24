@@ -13,6 +13,7 @@ import com.example.nguynqucvit.learnmoregamever2.R;
 public class SurvivalGameFragment extends Fragment {
     public static final String SURVIVAL_LINK = "https://linkneverdie.com/f1/Survival-Games/?page=";
     public static final int SURVIVAL_ID = 4;
+
     public SurvivalGameFragment() {
         // Required empty public constructor
     }
@@ -20,7 +21,7 @@ public class SurvivalGameFragment extends Fragment {
     public static SurvivalGameFragment newInstance() {
         SurvivalGameFragment fragment = new SurvivalGameFragment();
         Bundle args = new Bundle();
-
+        //...
         fragment.setArguments(args);
         return fragment;
     }
@@ -29,7 +30,7 @@ public class SurvivalGameFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-
+            //TODO:
         }
     }
 

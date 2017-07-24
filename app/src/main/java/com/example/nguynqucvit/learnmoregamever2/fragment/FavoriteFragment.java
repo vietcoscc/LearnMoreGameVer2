@@ -19,7 +19,7 @@ public class FavoriteFragment extends Fragment {
     public static FavoriteFragment newInstance() {
         FavoriteFragment fragment = new FavoriteFragment();
         Bundle args = new Bundle();
-
+        //...
         fragment.setArguments(args);
         return fragment;
     }
@@ -28,7 +28,7 @@ public class FavoriteFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-
+            //TODO:
         }
     }
 

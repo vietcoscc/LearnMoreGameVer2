@@ -13,6 +13,7 @@ import com.example.nguynqucvit.learnmoregamever2.R;
 public class TpsGameFragment extends Fragment {
     public static final String TPS_LINK = "https://linkneverdie.com/f1/TPS-Games/?page=";
     public static final int TPS_ID = 5;
+
     public TpsGameFragment() {
         // Required empty public constructor
     }
@@ -20,7 +21,7 @@ public class TpsGameFragment extends Fragment {
     public static TpsGameFragment newInstance() {
         TpsGameFragment fragment = new TpsGameFragment();
         Bundle args = new Bundle();
-
+        //...
         fragment.setArguments(args);
         return fragment;
     }
@@ -29,7 +30,7 @@ public class TpsGameFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-
+            //TODO:
         }
     }
 

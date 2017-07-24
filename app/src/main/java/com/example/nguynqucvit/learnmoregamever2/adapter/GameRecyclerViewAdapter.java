@@ -63,13 +63,5 @@ public class GameRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             tvViews = (TextView)itemView.findViewById(R.id.tvViews );
             popupMenu = (ImageView)itemView.findViewById(R.id.popupMenu );
         }
-
-
-    }	private ImageView tvImage;
-
-
-    private void findViews() {
-
     }
-
 }

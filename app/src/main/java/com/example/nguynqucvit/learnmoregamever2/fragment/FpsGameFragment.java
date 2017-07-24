@@ -14,6 +14,7 @@ import com.example.nguynqucvit.learnmoregamever2.R;
 public class FpsGameFragment extends Fragment {
     public static final String FPS_LINK = "https://linkneverdie.com/f1/FPS-Games/?page=";
     public static final int FPS_ID = 2;
+
     public FpsGameFragment() {
         // Required empty public constructor
     }
@@ -21,7 +22,7 @@ public class FpsGameFragment extends Fragment {
     public static FpsGameFragment newInstance() {
         FpsGameFragment fragment = new FpsGameFragment();
         Bundle args = new Bundle();
-
+        //...
         fragment.setArguments(args);
         return fragment;
     }
@@ -30,7 +31,7 @@ public class FpsGameFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-
+            //TODO:
         }
     }
 

@@ -17,7 +17,7 @@ public class OpenWorldGameFragment extends Fragment {
     public static OpenWorldGameFragment newInstance() {
         OpenWorldGameFragment fragment = new OpenWorldGameFragment();
         Bundle args = new Bundle();
-
+        //...
         fragment.setArguments(args);
         return fragment;
     }
@@ -26,7 +26,7 @@ public class OpenWorldGameFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-
+            //TODO:
         }
     }
 

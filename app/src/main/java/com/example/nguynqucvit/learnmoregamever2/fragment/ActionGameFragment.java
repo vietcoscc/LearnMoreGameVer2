@@ -1,7 +1,5 @@
 package com.example.nguynqucvit.learnmoregamever2.fragment;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.ContentLoadingProgressBar;
@@ -22,6 +20,10 @@ import java.util.ArrayList;
 public class ActionGameFragment extends Fragment {
     public static final String ACTION_LINK = "https://linkneverdie.com/f1/Action-Games/?page=";
     public static final int ACTION_ID = 1;
+    private ArrayList<ItemGame> arrItemGame = new ArrayList<>();
+    private ContentLoadingProgressBar mProgressBar;
+    private GameRecyclerViewAdapter gameRecyclerViewAdapter;
+
     public ActionGameFragment() {
         // Required empty public constructor
     }
@@ -30,7 +32,7 @@ public class ActionGameFragment extends Fragment {
     public static ActionGameFragment newInstance() {
         ActionGameFragment fragment = new ActionGameFragment();
         Bundle args = new Bundle();
-
+        //...
         fragment.setArguments(args);
         return fragment;
     }
@@ -39,7 +41,7 @@ public class ActionGameFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-
+            //TODO:
         }
     }
 
@@ -47,17 +49,23 @@ public class ActionGameFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_action_game, container, false);
-        final ContentLoadingProgressBar contentLoadingProgressBar = view.findViewById(R.id.contentLoadingProgressBar);
-        contentLoadingProgressBar.show();
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
-        final ArrayList<ItemGame> arrItemGame = new ArrayList<>();
-        final GameRecyclerViewAdapter gameRecyclerViewAdapter = new GameRecyclerViewAdapter(arrItemGame);
-        recyclerView.setAdapter(gameRecyclerViewAdapter);
-        RecyclerView.ItemDecoration decoration  = new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL);
-        recyclerView.addItemDecoration(decoration);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+        View view = inflater.inflate(R.layout.fragment_action_game, container, false);
+        initData();
+        initViews(view);
+        return view;
+    }
 
+    void initViews(View view) {
+        mProgressBar = view.findViewById(R.id.contentLoadingProgressBar);
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+        gameRecyclerViewAdapter = new GameRecyclerViewAdapter(arrItemGame);
+        recyclerView.setAdapter(gameRecyclerViewAdapter);
+        RecyclerView.ItemDecoration decoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+        recyclerView.addItemDecoration(decoration);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+    }
+
+    void initData() {
         JsoupParserAsyncTask jsoupParserAsyncTask = new JsoupParserAsyncTask();
         jsoupParserAsyncTask.setOnCompleteParsingListener(new JsoupParserAsyncTask.OnCompleteParsingListener() {
             @Override
@@ -65,12 +73,9 @@ public class ActionGameFragment extends Fragment {
                 arrItemGame.clear();
                 arrItemGame.addAll(itemGames);
                 gameRecyclerViewAdapter.notifyDataSetChanged();
-                contentLoadingProgressBar.hide();
+                mProgressBar.hide();
             }
         });
-        jsoupParserAsyncTask.execute(ACTION_LINK+"1");
-        return view;
+        jsoupParserAsyncTask.execute(ACTION_LINK + "1");
     }
-
-
 }

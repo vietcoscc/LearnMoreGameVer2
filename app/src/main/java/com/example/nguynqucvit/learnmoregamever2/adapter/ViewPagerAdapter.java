@@ -44,6 +44,8 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
                 return survivalGameFragment;
             case 4:
                 return tpsGameFragment;
+            default:
+                break;
         }
         return null;
     }
@@ -66,6 +68,8 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
                 return "Survival";
             case 4:
                 return "Tps";
+            default:
+                break;
 
         }
         return super.getPageTitle(position);

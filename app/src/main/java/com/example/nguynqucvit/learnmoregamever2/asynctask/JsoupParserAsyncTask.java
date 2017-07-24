@@ -19,7 +19,9 @@ import java.util.ArrayList;
 
 public class JsoupParserAsyncTask extends AsyncTask<String, ArrayList<ItemGame>, ArrayList<ItemGame>> {
     public static final String TAG = "JsoupParserAsyncTask";
+
     private OnCompleteParsingListener onCompleteParsingListener;
+
     @Override
     protected ArrayList<ItemGame> doInBackground(String... strings) {
         String link = strings[0];
@@ -38,12 +40,6 @@ public class JsoupParserAsyncTask extends AsyncTask<String, ArrayList<ItemGame>,
                 views = views.substring(views.lastIndexOf(" ")+1,views.length());
                 String date = elementDes.text().replace(type,"").replace(name,"").trim().replace(views,"").trim();
                 String detailsUrl = "https://linkneverdie.com" + elementImage.select("a").attr("href").trim();
-                Log.i(TAG, imageUrl);
-                Log.i(TAG, name);
-                Log.i(TAG, type);
-                Log.i(TAG, date);
-                Log.i(TAG, views);
-                Log.i(TAG, detailsUrl);
                 ItemGame itemGame = new ItemGame(0,imageUrl,name,type,date,views,detailsUrl);
                 arrItemGame.add(itemGame);
             }
