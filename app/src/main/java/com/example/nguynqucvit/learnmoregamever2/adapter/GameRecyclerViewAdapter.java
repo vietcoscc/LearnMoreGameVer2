@@ -28,6 +28,7 @@ public class GameRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     private Context context;
 
     private OnItemClickListener onItemClickListener;
+    private OnLoadingMoreListener onLoadingMoreListener;
 
     public GameRecyclerViewAdapter(ArrayList<ItemGame> arrItemGame) {
         this.arrItemGame = arrItemGame;
@@ -47,6 +48,9 @@ public class GameRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        if (holder == null) {
+            return;
+        }
         if (position < arrItemGame.size()) {
             GameViewHolder gameViewHolder = (GameViewHolder) holder;
             ItemGame itemGame = arrItemGame.get(position);
@@ -56,8 +60,12 @@ public class GameRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             gameViewHolder.tvType.setText(itemGame.getType());
             gameViewHolder.tvViews.setText(itemGame.getViews());
         } else {
+
             LoadingMoreViewHolder loadingMoreViewHolder = (LoadingMoreViewHolder) holder;
             loadingMoreViewHolder.contentLoadingProgressBar.show();
+            if (onLoadingMoreListener != null) {
+                onLoadingMoreListener.onLoading();
+            }
         }
     }
 
@@ -114,6 +122,14 @@ public class GameRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
+    }
+
+    public void setOnLoadingMoreListener(OnLoadingMoreListener onLoadingMoreListener) {
+        this.onLoadingMoreListener = onLoadingMoreListener;
+    }
+
+    public interface OnLoadingMoreListener {
+        void onLoading();
     }
 
     public interface OnItemClickListener {

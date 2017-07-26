@@ -15,14 +15,14 @@ import com.example.nguynqucvit.learnmoregamever2.fragment.TpsGameFragment;
  * Created by Nguyễn Quốc Việt on 18/07/2017.
  */
 
-public class ViewPagerAdapter extends FragmentStatePagerAdapter {
+public class GameViewPagerAdapter extends FragmentStatePagerAdapter {
     ActionGameFragment actionGameFragment;
     FpsGameFragment fpsGameFragment;
     OpenWorldGameFragment openWorldGameFragment;
     SurvivalGameFragment survivalGameFragment;
     TpsGameFragment tpsGameFragment;
 
-    public ViewPagerAdapter(FragmentManager fm) {
+    public GameViewPagerAdapter(FragmentManager fm) {
         super(fm);
         actionGameFragment = ActionGameFragment.newInstance();
         openWorldGameFragment = OpenWorldGameFragment.newInstance();

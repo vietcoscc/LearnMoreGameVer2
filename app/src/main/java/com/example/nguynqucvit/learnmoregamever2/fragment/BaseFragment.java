@@ -43,7 +43,13 @@ public class BaseFragment extends Fragment {
                 Toast.makeText(getContext(), position + "", Toast.LENGTH_SHORT).show();
             }
         });
-
+        gameRecyclerViewAdapter.setOnLoadingMoreListener(new GameRecyclerViewAdapter.OnLoadingMoreListener() {
+            @Override
+            public void onLoading() {
+                currentPage++;
+                initData(link);
+            }
+        });
         final RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setAdapter(gameRecyclerViewAdapter);
         RecyclerView.ItemDecoration decoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
@@ -56,7 +62,6 @@ public class BaseFragment extends Fragment {
             public void onRefresh() {
                 refreshLayout.setRefreshing(true);
                 if (link != null) {
-                    arrItemGame.clear();
                     initData(link);
                 }
             }
@@ -69,6 +74,9 @@ public class BaseFragment extends Fragment {
         jsoupParserAsyncTask.setOnCompleteParsingListener(new JsoupParserAsyncTask.OnCompleteParsingListener() {
             @Override
             public void onComplete(ArrayList<ItemGame> itemGames) {
+                if(refreshLayout.isRefreshing()){
+                    arrItemGame.clear();
+                }
                 arrItemGame.addAll(itemGames);
                 gameRecyclerViewAdapter.notifyDataSetChanged();
                 if (mProgressBar.isShown()) {
