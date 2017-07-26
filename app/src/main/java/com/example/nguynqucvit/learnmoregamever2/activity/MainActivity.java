@@ -21,13 +21,17 @@ import com.example.nguynqucvit.learnmoregamever2.fragment.HomeFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    private HomeFragment homeFragment = HomeFragment.newInstance();
-    private FavoriteFragment favoriteFragment = FavoriteFragment.newInstance();
+
+    private HomeFragment mHomeFragment = HomeFragment.newInstance();
+    private FavoriteFragment mFavoriteFragment = FavoriteFragment.newInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initViews();
+    }
+    private void initViews(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -35,7 +39,7 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "No action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -49,12 +53,10 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        addFragment(homeFragment);
-        addFragment(favoriteFragment);
-        hideFragment(favoriteFragment);
-
+        addFragment(mHomeFragment);
+        addFragment(mFavoriteFragment);
+        hideFragment(mFavoriteFragment);
     }
-
     @Override
     public void onBackPressed() {
 
@@ -64,8 +66,8 @@ public class MainActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
-        if (homeFragment.isHidden()) {
-            showFragment(homeFragment, false);
+        if (mHomeFragment.isHidden()) {
+            showFragment(mHomeFragment, false);
             return;
         }
     }
@@ -101,12 +103,12 @@ public class MainActivity extends AppCompatActivity
 
         switch (id) {
             case R.id.nav_home:
-                showFragment(homeFragment, false);
-                hideFragment(favoriteFragment);
+                showFragment(mHomeFragment, false);
+                hideFragment(mFavoriteFragment);
                 break;
             case R.id.nav_favorite:
-                showFragment(favoriteFragment, true);
-                hideFragment(homeFragment);
+                showFragment(mFavoriteFragment, true);
+                hideFragment(mHomeFragment);
                 break;
         }
 

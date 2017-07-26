@@ -20,8 +20,8 @@ import java.util.ArrayList;
  */
 
 public class GameRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    public static final int ITEM_GAME = 0;
-    public static final int LOADING = 1;
+    public static final int ITEM_GAME = 1;
+    public static final int LOADING = 2;
 
 
     private ArrayList<ItemGame> arrItemGame = new ArrayList<>();
@@ -40,10 +40,12 @@ public class GameRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         if (viewType == ITEM_GAME) {
             View view = LayoutInflater.from(context).inflate(R.layout.item_game_recycler_view, parent, false);
             return new GameViewHolder(view);
-        } else {
+        }
+        if (viewType == LOADING) {
             View view = LayoutInflater.from(context).inflate(R.layout.item_loading_more_recycler_view, parent, false);
             return new LoadingMoreViewHolder(view);
         }
+        return null;
     }
 
     @Override
@@ -73,10 +75,11 @@ public class GameRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     public int getItemViewType(int position) {
         if (position < arrItemGame.size()) {
             return ITEM_GAME;
-        } else {
+        }
+        if (position == arrItemGame.size()) {
             return LOADING;
         }
-
+        return 0;
     }
 
     @Override

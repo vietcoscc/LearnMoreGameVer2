@@ -1,5 +1,6 @@
 package com.example.nguynqucvit.learnmoregamever2.fragment;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.nguynqucvit.learnmoregamever2.R;
+import com.example.nguynqucvit.learnmoregamever2.activity.GameContentActivity;
 import com.example.nguynqucvit.learnmoregamever2.adapter.GameRecyclerViewAdapter;
 import com.example.nguynqucvit.learnmoregamever2.asynctask.JsoupParserAsyncTask;
 import com.example.nguynqucvit.learnmoregamever2.model.ItemGame;
@@ -22,9 +24,11 @@ import java.util.ArrayList;
 
 public class BaseFragment extends Fragment {
 
+    public static final String DETAILS_URL = "Details URL";
+    public static final String NAME = "Name";
     private ArrayList<ItemGame> arrItemGame = new ArrayList<>();
     private ContentLoadingProgressBar mProgressBar;
-    private GameRecyclerViewAdapter gameRecyclerViewAdapter;
+    private GameRecyclerViewAdapter mGameRecyclerViewAdapter;
     private int currentPage = 1;
     private String link;
     private SwipeRefreshLayout refreshLayout;
@@ -36,22 +40,28 @@ public class BaseFragment extends Fragment {
     protected void initViews(View view) {
         mProgressBar = view.findViewById(R.id.contentLoadingProgressBar);
 
-        gameRecyclerViewAdapter = new GameRecyclerViewAdapter(arrItemGame);
-        gameRecyclerViewAdapter.setOnItemClickListener(new GameRecyclerViewAdapter.OnItemClickListener() {
+        mGameRecyclerViewAdapter = new GameRecyclerViewAdapter(arrItemGame);
+        mGameRecyclerViewAdapter.setOnItemClickListener(new GameRecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onClick(View view, int position) {
                 Toast.makeText(getContext(), position + "", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), GameContentActivity.class);
+                intent.putExtra(DETAILS_URL, arrItemGame.get(position).getDetailsUrl());
+                intent.putExtra(NAME, arrItemGame.get(position).getName());
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
             }
         });
-        gameRecyclerViewAdapter.setOnLoadingMoreListener(new GameRecyclerViewAdapter.OnLoadingMoreListener() {
+        mGameRecyclerViewAdapter.setOnLoadingMoreListener(new GameRecyclerViewAdapter.OnLoadingMoreListener() {
             @Override
             public void onLoading() {
                 currentPage++;
                 initData(link);
             }
         });
+
         final RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
-        recyclerView.setAdapter(gameRecyclerViewAdapter);
+        recyclerView.setAdapter(mGameRecyclerViewAdapter);
         RecyclerView.ItemDecoration decoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(decoration);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
@@ -74,11 +84,11 @@ public class BaseFragment extends Fragment {
         jsoupParserAsyncTask.setOnCompleteParsingListener(new JsoupParserAsyncTask.OnCompleteParsingListener() {
             @Override
             public void onComplete(ArrayList<ItemGame> itemGames) {
-                if(refreshLayout.isRefreshing()){
+                if (refreshLayout.isRefreshing()) {
                     arrItemGame.clear();
                 }
                 arrItemGame.addAll(itemGames);
-                gameRecyclerViewAdapter.notifyDataSetChanged();
+                mGameRecyclerViewAdapter.notifyDataSetChanged();
                 if (mProgressBar.isShown()) {
                     mProgressBar.hide();
                 }

@@ -2,7 +2,6 @@ package com.example.nguynqucvit.learnmoregamever2.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.example.nguynqucvit.learnmoregamever2.fragment.ActionGameFragment;
@@ -16,34 +15,34 @@ import com.example.nguynqucvit.learnmoregamever2.fragment.TpsGameFragment;
  */
 
 public class GameViewPagerAdapter extends FragmentStatePagerAdapter {
-    ActionGameFragment actionGameFragment;
-    FpsGameFragment fpsGameFragment;
-    OpenWorldGameFragment openWorldGameFragment;
-    SurvivalGameFragment survivalGameFragment;
-    TpsGameFragment tpsGameFragment;
+    private ActionGameFragment mActionGameFragment;
+    private FpsGameFragment mFpsGameFragment;
+    private OpenWorldGameFragment mOpenWorldGameFragment;
+    private SurvivalGameFragment mSurvivalGameFragment;
+    private TpsGameFragment mTpsGameFragment;
 
     public GameViewPagerAdapter(FragmentManager fm) {
         super(fm);
-        actionGameFragment = ActionGameFragment.newInstance();
-        openWorldGameFragment = OpenWorldGameFragment.newInstance();
-        fpsGameFragment = FpsGameFragment.newInstance();
-        survivalGameFragment = SurvivalGameFragment.newInstance();
-        tpsGameFragment = TpsGameFragment.newInstance();
+        mActionGameFragment = ActionGameFragment.newInstance();
+        mOpenWorldGameFragment = OpenWorldGameFragment.newInstance();
+        mFpsGameFragment = FpsGameFragment.newInstance();
+        mSurvivalGameFragment = SurvivalGameFragment.newInstance();
+        mTpsGameFragment = TpsGameFragment.newInstance();
     }
 
     @Override
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return actionGameFragment;
+                return mActionGameFragment;
             case 1:
-                return fpsGameFragment;
+                return mFpsGameFragment;
             case 2:
-                return openWorldGameFragment;
+                return mOpenWorldGameFragment;
             case 3:
-                return survivalGameFragment;
+                return mSurvivalGameFragment;
             case 4:
-                return tpsGameFragment;
+                return mTpsGameFragment;
             default:
                 break;
         }
