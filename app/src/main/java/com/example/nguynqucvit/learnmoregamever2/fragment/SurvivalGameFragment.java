@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.example.nguynqucvit.learnmoregamever2.R;
 
-public class SurvivalGameFragment extends Fragment {
+public class SurvivalGameFragment extends BaseFragment {
     public static final String SURVIVAL_LINK = "https://linkneverdie.com/f1/Survival-Games/?page=";
     public static final int SURVIVAL_ID = 4;
 
@@ -38,7 +38,10 @@ public class SurvivalGameFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_survival_game, container, false);
+        View view = inflater.inflate(R.layout.fragment_survival_game, container, false);
+        initData(SURVIVAL_LINK);
+        initViews(view);
+        return view;
     }
 
 }

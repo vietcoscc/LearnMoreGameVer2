@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.example.nguynqucvit.learnmoregamever2.R;
 
-public class TpsGameFragment extends Fragment {
+public class TpsGameFragment extends BaseFragment {
     public static final String TPS_LINK = "https://linkneverdie.com/f1/TPS-Games/?page=";
     public static final int TPS_ID = 5;
 
@@ -38,7 +38,10 @@ public class TpsGameFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tps_game, container, false);
+        View view = inflater.inflate(R.layout.fragment_tps_game, container, false);
+        initData(TPS_LINK);
+        initViews(view);
+        return view;
     }
 
 }

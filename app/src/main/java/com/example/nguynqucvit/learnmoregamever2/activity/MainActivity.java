@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
 import com.example.nguynqucvit.learnmoregamever2.R;
 import com.example.nguynqucvit.learnmoregamever2.fragment.FavoriteFragment;
 import com.example.nguynqucvit.learnmoregamever2.fragment.HomeFragment;
@@ -20,6 +21,8 @@ import com.example.nguynqucvit.learnmoregamever2.fragment.HomeFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private HomeFragment homeFragment = HomeFragment.newInstance();
+    private FavoriteFragment favoriteFragment = FavoriteFragment.newInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,17 +49,24 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        HomeFragment homeFragment = HomeFragment.newInstance();
-        replaceContentFragment(R.id.layoutContent,homeFragment,false);
+        addFragment(homeFragment);
+        addFragment(favoriteFragment);
+        hideFragment(favoriteFragment);
+
     }
 
     @Override
     public void onBackPressed() {
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+        }
+        if (homeFragment.isHidden()) {
+            showFragment(homeFragment, false);
+            return;
         }
     }
 
@@ -91,12 +101,12 @@ public class MainActivity extends AppCompatActivity
 
         switch (id) {
             case R.id.nav_home:
-                HomeFragment homeFragment = HomeFragment.newInstance();
-                replaceContentFragment(R.id.layoutContent,homeFragment,false);
+                showFragment(homeFragment, false);
+                hideFragment(favoriteFragment);
                 break;
             case R.id.nav_favorite:
-                FavoriteFragment favoriteFragment = FavoriteFragment.newInstance();
-                replaceContentFragment(R.id.layoutContent,favoriteFragment,true);
+                showFragment(favoriteFragment, true);
+                hideFragment(homeFragment);
                 break;
         }
 
@@ -104,19 +114,34 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-    public void replaceContentFragment(int containerViewId, Fragment fragment,boolean isAddedToBackStack){
+
+    private void addFragment(Fragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.layoutContent, fragment)
+                .commit();
+    }
+
+    private void showFragment(Fragment fragment, boolean isAddedToBackStack) {
         getSupportFragmentManager().popBackStack();
         if (isAddedToBackStack) {
-            getSupportFragmentManager().
-                    beginTransaction().
-                    replace(containerViewId, fragment).
-                    addToBackStack(null).
-                    commit();
-        }else {
-            getSupportFragmentManager().
-                    beginTransaction().
-                    replace(containerViewId, fragment).
-                    commit();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .show(fragment)
+                    .addToBackStack("")
+                    .commit();
+        } else {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .show(fragment)
+                    .commit();
         }
+    }
+
+    private void hideFragment(Fragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .hide(fragment)
+                .commit();
     }
 }

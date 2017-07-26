@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.example.nguynqucvit.learnmoregamever2.R;
 
-public class OpenWorldGameFragment extends Fragment {
+public class OpenWorldGameFragment extends BaseFragment {
     public static final String OPEN_WORLD_LINK = "https://linkneverdie.com/f1/OpenWorld-Games/?page=";
     public static final int OPEN_WORLD_ID = 3;
 
@@ -34,7 +34,10 @@ public class OpenWorldGameFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_open_world_game, container, false);
+        View view = inflater.inflate(R.layout.fragment_open_world_game, container, false);
+        initData(OPEN_WORLD_LINK);
+        initViews(view);
+        return view;
     }
 
 }

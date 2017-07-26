@@ -46,7 +46,7 @@ public class HomeFragment extends Fragment {
         initViews(view);
         return view;
     }
-    void initViews(View view){
+    private void initViews(View view){
         ViewPager viewPager = view.findViewById(R.id.viewPager);
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getFragmentManager());
         viewPager.setAdapter(viewPagerAdapter);

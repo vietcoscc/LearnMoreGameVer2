@@ -3,14 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.nguynqucvit.learnmoregamever2.fragment.ActionGameFragment">
-    <android.support.v4.widget.ContentLoadingProgressBar
-        android:id="@+id/contentLoadingProgressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
 
+    <include layout="@layout/fragment_base_game" />
 </FrameLayout>
