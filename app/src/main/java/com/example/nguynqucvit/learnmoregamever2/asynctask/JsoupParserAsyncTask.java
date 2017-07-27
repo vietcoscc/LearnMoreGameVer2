@@ -28,6 +28,7 @@ public class JsoupParserAsyncTask extends AsyncTask<String, ArrayList<ItemGame>,
         try {
             ArrayList<ItemGame> arrItemGame = new ArrayList<>();
             Document document = Jsoup.connect(link).get();
+//            Log.i(TAG,document.outerHtml());
             Elements elementsImage = document.select("div.portfolio-image");
             Elements elementsDes = document.select("div.portfolio-desc");
             for (int i = 0; i < elementsImage.size(); i++) {

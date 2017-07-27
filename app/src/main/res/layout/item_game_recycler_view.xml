@@ -73,13 +73,13 @@
                 android:layout_weight="1"
                 android:singleLine="true" />
 
-            <ImageView
-                android:id="@+id/popupMenu"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:alpha="0.7"
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_more" />
+            <!--<ImageView-->
+                <!--android:id="@+id/popupMenu"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="20dp"-->
+                <!--android:alpha="0.7"-->
+                <!--android:scaleType="centerInside"-->
+                <!--android:src="@drawable/ic_more" />-->
         </LinearLayout>
     </LinearLayout>
 

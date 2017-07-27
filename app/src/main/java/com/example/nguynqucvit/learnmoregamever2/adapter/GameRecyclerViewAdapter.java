@@ -28,6 +28,7 @@ public class GameRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     private Context context;
 
     private OnItemClickListener onItemClickListener;
+    private OnItemLongClickListener onItemLongClickListener;
     private OnLoadingMoreListener onLoadingMoreListener;
 
     public GameRecyclerViewAdapter(ArrayList<ItemGame> arrItemGame) {
@@ -67,6 +68,8 @@ public class GameRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             loadingMoreViewHolder.contentLoadingProgressBar.show();
             if (onLoadingMoreListener != null) {
                 onLoadingMoreListener.onLoading();
+            } else {
+                loadingMoreViewHolder.contentLoadingProgressBar.hide();
             }
         }
     }
@@ -87,13 +90,13 @@ public class GameRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         return arrItemGame.size() + 1;
     }
 
-    class GameViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class GameViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         private ImageView ivImage;
         private TextView tvName;
         private TextView tvType;
         private TextView tvDate;
         private TextView tvViews;
-        private ImageView popupMenu;
+//        private ImageView popupMenu;
 
         public GameViewHolder(View itemView) {
             super(itemView);
@@ -102,8 +105,9 @@ public class GameRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             tvType = (TextView) itemView.findViewById(R.id.tvType);
             tvDate = (TextView) itemView.findViewById(R.id.tvDate);
             tvViews = (TextView) itemView.findViewById(R.id.tvViews);
-            popupMenu = (ImageView) itemView.findViewById(R.id.popupMenu);
+//            popupMenu = (ImageView) itemView.findViewById(R.id.popupMenu);
             itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
         }
 
         @Override
@@ -111,6 +115,14 @@ public class GameRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             if (onItemClickListener != null) {
                 onItemClickListener.onClick(view, getPosition());
             }
+        }
+
+        @Override
+        public boolean onLongClick(View view) {
+            if (onItemLongClickListener != null) {
+                onItemLongClickListener.onLongClick(view, getPosition());
+            }
+            return true;
         }
     }
 
@@ -127,6 +139,10 @@ public class GameRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         this.onItemClickListener = onItemClickListener;
     }
 
+    public void setOnItemLongClickListener(OnItemLongClickListener onItemLongClickListener) {
+        this.onItemLongClickListener = onItemLongClickListener;
+    }
+
     public void setOnLoadingMoreListener(OnLoadingMoreListener onLoadingMoreListener) {
         this.onLoadingMoreListener = onLoadingMoreListener;
     }
@@ -137,5 +153,9 @@ public class GameRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     public interface OnItemClickListener {
         void onClick(View view, int position);
+    }
+
+    public interface OnItemLongClickListener {
+        void onLongClick(View view, int position);
     }
 }

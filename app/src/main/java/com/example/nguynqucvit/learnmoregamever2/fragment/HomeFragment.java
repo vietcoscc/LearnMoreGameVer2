@@ -8,9 +8,9 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.example.nguynqucvit.learnmoregamever2.R;
 import com.example.nguynqucvit.learnmoregamever2.adapter.GameViewPagerAdapter;
+
 
 public class HomeFragment extends Fragment {
 
@@ -42,14 +42,15 @@ public class HomeFragment extends Fragment {
         initViews(view);
         return view;
     }
-    private void initViews(View view){
+
+    private void initViews(View view) {
         ViewPager viewPager = view.findViewById(R.id.viewPager);
         GameViewPagerAdapter viewPagerAdapter = new GameViewPagerAdapter(getFragmentManager());
         viewPager.setAdapter(viewPagerAdapter);
         viewPager.setOffscreenPageLimit(5);
 
         TabLayout tabLayout = view.findViewById(R.id.tabLayout);
-        tabLayout.setTabTextColors(Color.WHITE,Color.WHITE);
+        tabLayout.setTabTextColors(Color.WHITE, Color.WHITE);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setupWithViewPager(viewPager);
     }
