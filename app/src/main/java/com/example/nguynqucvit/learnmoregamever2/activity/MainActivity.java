@@ -1,20 +1,13 @@
 package com.example.nguynqucvit.learnmoregamever2.activity;
 
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.transition.Transition;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -24,16 +17,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.commonsware.cwac.loaderex.acl.SQLiteCursorLoader;
 import com.example.nguynqucvit.learnmoregamever2.R;
-import com.example.nguynqucvit.learnmoregamever2.database.MySQLiteOpenHelper;
 import com.example.nguynqucvit.learnmoregamever2.fragment.FavoriteFragment;
 import com.example.nguynqucvit.learnmoregamever2.fragment.HomeFragment;
-
-import static com.example.nguynqucvit.learnmoregamever2.database.MySQLiteOpenHelper.NAME;
-import static com.example.nguynqucvit.learnmoregamever2.database.MySQLiteOpenHelper.TYPE;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -56,7 +44,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void initViews() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Home");
         setSupportActionBar(toolbar);
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -154,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_favorite:
                 showFragment(mFavoriteFragment, true);
-                SQLiteCursorLoader cursorLoader = mFavoriteFragment.getCursorLoader();
+                SQLiteCursorLoader cursorLoader = mFavoriteFragment.getmCursorLoader();
                 cursorLoader.onContentChanged();
                 hideFragment(mHomeFragment);
                 break;

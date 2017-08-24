@@ -27,6 +27,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.GameContentActivity"></activity>
+
+        <service android:name=".service.NewGameNotificationService" />
+        <receiver android:name=".receiver.NotificationReceiver">
+            <intent-filter>
+
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

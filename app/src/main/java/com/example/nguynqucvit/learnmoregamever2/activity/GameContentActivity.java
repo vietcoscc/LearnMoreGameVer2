@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -20,9 +19,9 @@ import static com.example.nguynqucvit.learnmoregamever2.fragment.BaseFragment.DE
 import static com.example.nguynqucvit.learnmoregamever2.fragment.BaseFragment.NAME;
 
 public class GameContentActivity extends AppCompatActivity {
-    private String detailsUrl;
-    private String name;
-    private String htmlContent;
+    private String mDetailsUrl;
+    private String mName;
+    private String mHtmlContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +32,12 @@ public class GameContentActivity extends AppCompatActivity {
 
     private void initData() {
         String tag = getIntent().getExtras().getString(DES_TAG);
-        name = getIntent().getExtras().getString(NAME);
+        mName = getIntent().getExtras().getString(NAME);
         if (tag.equals(BaseFragment.TAG)) {
-            detailsUrl = getIntent().getExtras().getString(DETAILS_URL);
+            mDetailsUrl = getIntent().getExtras().getString(DETAILS_URL);
         }
         if (tag.equals(FavoriteFragment.TAG)) {
-            htmlContent = getIntent().getExtras().getString(CONTENT_HTML);
+            mHtmlContent = getIntent().getExtras().getString(CONTENT_HTML);
         }
 
         initViews(tag);
@@ -46,7 +45,7 @@ public class GameContentActivity extends AppCompatActivity {
 
     private void initViews(String tag) {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(name);
+        getSupportActionBar().setTitle(mName);
         final ContentLoadingProgressBar contentLoadingProgressBar =
                 (ContentLoadingProgressBar) findViewById(R.id.contentLoadingProgressBar);
 
@@ -74,10 +73,10 @@ public class GameContentActivity extends AppCompatActivity {
         });
 
         if (tag.equals(BaseFragment.TAG)) {
-            wvGameContent.loadUrl(detailsUrl);
+            wvGameContent.loadUrl(mDetailsUrl);
         }
         if (tag.equals(FavoriteFragment.TAG)) { // load offline html
-            wvGameContent.loadDataWithBaseURL(null, htmlContent, "text/html", "utf-8", null);
+            wvGameContent.loadDataWithBaseURL(null, mHtmlContent, "text/html", "utf-8", null);
         }
     }
 

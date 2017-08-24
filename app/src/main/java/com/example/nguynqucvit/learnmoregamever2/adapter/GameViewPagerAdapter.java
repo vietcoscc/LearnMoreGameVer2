@@ -66,7 +66,7 @@ public class GameViewPagerAdapter extends FragmentStatePagerAdapter {
             case 2:
                 return "Open world";
             case 3:
-                return "Survival";
+                return "Surv";
             case 4:
                 return "Tps";
             default:

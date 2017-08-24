@@ -35,12 +35,12 @@ public class BaseFragment extends Fragment implements GameRecyclerViewAdapter.On
     public static final String NAME = "Name";
     public static final String TAG = "BaseFragment";
     public static final String DES_TAG = "Tag";
-    private ArrayList<ItemGame> arrItemGame = new ArrayList<>();
+    private ArrayList<ItemGame> mArrItemGame = new ArrayList<>();
     private ContentLoadingProgressBar mProgressBar;
     private GameRecyclerViewAdapter mGameRecyclerViewAdapter;
-    private int currentPage = 1;
-    private String link;
-    private SwipeRefreshLayout refreshLayout;
+    private int mCurrentPage = 1;
+    private String mLink;
+    private SwipeRefreshLayout mRefreshLayout;
 
     public BaseFragment() {
 
@@ -49,7 +49,7 @@ public class BaseFragment extends Fragment implements GameRecyclerViewAdapter.On
     protected void initViews(View view) {
         mProgressBar = view.findViewById(R.id.contentLoadingProgressBar);
 
-        mGameRecyclerViewAdapter = new GameRecyclerViewAdapter(arrItemGame);
+        mGameRecyclerViewAdapter = new GameRecyclerViewAdapter(mArrItemGame);
         mGameRecyclerViewAdapter.setOnItemClickListener(this);
         mGameRecyclerViewAdapter.setOnLoadingMoreListener(this);
         mGameRecyclerViewAdapter.setOnItemLongClickListener(this);
@@ -59,46 +59,46 @@ public class BaseFragment extends Fragment implements GameRecyclerViewAdapter.On
         recyclerView.addItemDecoration(decoration);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
-        refreshLayout = view.findViewById(R.id.refreshLayout);
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        mRefreshLayout = view.findViewById(R.id.refreshLayout);
+        mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                refreshLayout.setRefreshing(true);
-                if (link != null) {
-                    initData(link);
+                mRefreshLayout.setRefreshing(true);
+                if (mLink != null) {
+                    initData(mLink);
                 }
             }
         });
     }
 
     protected void initData(String link) {
-        this.link = link;
+        this.mLink = link;
         JsoupParserAsyncTask jsoupParserAsyncTask = new JsoupParserAsyncTask();
-        jsoupParserAsyncTask.setOnCompleteParsingListener(new JsoupParserAsyncTask.OnCompleteParsingListener() {
+        jsoupParserAsyncTask.setmOnCompleteParsingListener(new JsoupParserAsyncTask.OnCompleteParsingListener() {
             @Override
             public void onComplete(ArrayList<ItemGame> itemGames) {
-                if (refreshLayout.isRefreshing()) {
-                    arrItemGame.clear();
+                if (mRefreshLayout.isRefreshing()) {
+                    mArrItemGame.clear();
                 }
                 if (itemGames != null) {
-                    arrItemGame.addAll(itemGames);
+                    mArrItemGame.addAll(itemGames);
                 }
                 mGameRecyclerViewAdapter.notifyDataSetChanged();
                 if (mProgressBar.isShown()) {
                     mProgressBar.hide();
                 }
-                if (refreshLayout.isRefreshing()) {
-                    refreshLayout.setRefreshing(false);
+                if (mRefreshLayout.isRefreshing()) {
+                    mRefreshLayout.setRefreshing(false);
                 }
             }
         });
-        jsoupParserAsyncTask.execute(link + currentPage);
+        jsoupParserAsyncTask.execute(link + mCurrentPage);
     }
 
     @Override
     public void onLoading() {
-        currentPage++;
-        initData(link);
+        mCurrentPage++;
+        initData(mLink);
     }
 
     @Override
@@ -107,8 +107,8 @@ public class BaseFragment extends Fragment implements GameRecyclerViewAdapter.On
         Toast.makeText(getContext(), position + "", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getContext(), GameContentActivity.class);
         intent.putExtra(DES_TAG, TAG);
-        intent.putExtra(DETAILS_URL, arrItemGame.get(position).getDetailsUrl());
-        intent.putExtra(NAME, arrItemGame.get(position).getName());
+        intent.putExtra(DETAILS_URL, mArrItemGame.get(position).getDetailsUrl());
+        intent.putExtra(NAME, mArrItemGame.get(position).getName());
         startActivity(intent);
         getActivity().overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
     }
@@ -134,15 +134,15 @@ public class BaseFragment extends Fragment implements GameRecyclerViewAdapter.On
                 dialog.show();
                 final MyDatabase myDatabase = new MyDatabase(getContext());
                 HtmlDownloadingAsyncTask htmlDownloadingAsyncTask = new HtmlDownloadingAsyncTask();
-                htmlDownloadingAsyncTask.setOnCompleteDownloadListener(new HtmlDownloadingAsyncTask.OnCompleteDownloadListener() {
+                htmlDownloadingAsyncTask.setmOnCompleteDownloadListener(new HtmlDownloadingAsyncTask.OnCompleteDownloadListener() {
                     @Override
                     public void OnComplete(String src) {
-                        myDatabase.insertGameFull(arrItemGame.get(position), src);
+                        myDatabase.insertGameFull(mArrItemGame.get(position), src);
                         dialog.hide();
                         Toast.makeText(getContext(), "Favorited", Toast.LENGTH_SHORT).show();
                     }
                 });
-                htmlDownloadingAsyncTask.execute(arrItemGame.get(position).getDetailsUrl());
+                htmlDownloadingAsyncTask.execute(mArrItemGame.get(position).getDetailsUrl());
                 return false;
             }
         });

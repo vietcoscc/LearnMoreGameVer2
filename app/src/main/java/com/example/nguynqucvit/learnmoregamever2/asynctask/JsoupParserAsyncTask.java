@@ -1,7 +1,6 @@
 package com.example.nguynqucvit.learnmoregamever2.asynctask;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.example.nguynqucvit.learnmoregamever2.model.ItemGame;
 
@@ -20,7 +19,7 @@ import java.util.ArrayList;
 public class JsoupParserAsyncTask extends AsyncTask<String, ArrayList<ItemGame>, ArrayList<ItemGame>> {
     public static final String TAG = "JsoupParserAsyncTask";
 
-    private OnCompleteParsingListener onCompleteParsingListener;
+    private OnCompleteParsingListener mOnCompleteParsingListener;
 
     @Override
     protected ArrayList<ItemGame> doInBackground(String... strings) {
@@ -37,12 +36,12 @@ public class JsoupParserAsyncTask extends AsyncTask<String, ArrayList<ItemGame>,
                 Element elementDes = elementsDes.get(i);
                 String name = elementDes.select("h3").select("a").text().trim();
                 String type = elementDes.select("h5").text().trim();
-                String views = elementDes.text().replace(type,"").replace(name,"").trim();
-                views = views.substring(views.lastIndexOf(" ")+1,views.length());
-                String date = elementDes.text().replace(type,"").replace(name,"").trim().replace(views,"").trim();
+                String views = elementDes.text().replace(type, "").replace(name, "").trim();
+                views = views.substring(views.lastIndexOf(" ") + 1, views.length());
+                String date = elementDes.text().replace(type, "").replace(name, "").trim().replace(views, "").trim();
                 String detailsUrl = "https://linkneverdie.com" + elementImage.select("a").attr("href").trim();
 
-                ItemGame itemGame = new ItemGame(0,imageUrl,name,type,date,views,detailsUrl);
+                ItemGame itemGame = new ItemGame(0, imageUrl, name, type, date, " " + views, detailsUrl);
                 arrItemGame.add(itemGame);
             }
             return arrItemGame;
@@ -54,18 +53,18 @@ public class JsoupParserAsyncTask extends AsyncTask<String, ArrayList<ItemGame>,
 
     @Override
     protected void onPostExecute(ArrayList<ItemGame> itemGames) {
-        if(onCompleteParsingListener!=null){
-            onCompleteParsingListener.onComplete(itemGames);
+        if (mOnCompleteParsingListener != null) {
+            mOnCompleteParsingListener.onComplete(itemGames);
         }
         super.onPostExecute(itemGames);
     }
 
-    public void setOnCompleteParsingListener(OnCompleteParsingListener onCompleteParsingListener) {
-        this.onCompleteParsingListener = onCompleteParsingListener;
+    public void setmOnCompleteParsingListener(OnCompleteParsingListener mOnCompleteParsingListener) {
+        this.mOnCompleteParsingListener = mOnCompleteParsingListener;
     }
 
-    public interface OnCompleteParsingListener{
-        void onComplete(ArrayList<ItemGame> itemGames );
+    public interface OnCompleteParsingListener {
+        void onComplete(ArrayList<ItemGame> itemGames);
     }
 
 }

@@ -11,7 +11,7 @@ import java.io.IOException;
  */
 
 public class HtmlDownloadingAsyncTask extends AsyncTask<String, String, String> {
-    private OnCompleteDownloadListener onCompleteDownloadListener;
+    private OnCompleteDownloadListener mOnCompleteDownloadListener;
 
     @Override
     protected String doInBackground(String... strings) {
@@ -30,13 +30,13 @@ public class HtmlDownloadingAsyncTask extends AsyncTask<String, String, String> 
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        if (onCompleteDownloadListener != null) {
-            onCompleteDownloadListener.OnComplete(s);
+        if (mOnCompleteDownloadListener != null) {
+            mOnCompleteDownloadListener.OnComplete(s);
         }
     }
 
-    public void setOnCompleteDownloadListener(OnCompleteDownloadListener onCompleteDownloadingListener) {
-        this.onCompleteDownloadListener = onCompleteDownloadingListener;
+    public void setmOnCompleteDownloadListener(OnCompleteDownloadListener onCompleteDownloadingListener) {
+        this.mOnCompleteDownloadListener = onCompleteDownloadingListener;
     }
 
     public interface OnCompleteDownloadListener {

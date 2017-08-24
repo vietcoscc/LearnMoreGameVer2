@@ -65,6 +65,7 @@
                 android:tint="@color/colorPrimary" />
 
             <TextView
+
                 android:id="@+id/tvViews"
                 style="?android:attr/textAppearanceSmall"
                 android:layout_width="0dp"

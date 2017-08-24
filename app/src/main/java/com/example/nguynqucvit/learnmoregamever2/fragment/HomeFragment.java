@@ -1,5 +1,6 @@
 package com.example.nguynqucvit.learnmoregamever2.fragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -8,8 +9,10 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.example.nguynqucvit.learnmoregamever2.R;
 import com.example.nguynqucvit.learnmoregamever2.adapter.GameViewPagerAdapter;
+import com.example.nguynqucvit.learnmoregamever2.service.NewGameNotificationService;
 
 
 public class HomeFragment extends Fragment {
@@ -38,6 +41,8 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        Intent intent = new Intent(getContext(), NewGameNotificationService.class);
+        getContext().startService(intent);
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         initViews(view);
         return view;

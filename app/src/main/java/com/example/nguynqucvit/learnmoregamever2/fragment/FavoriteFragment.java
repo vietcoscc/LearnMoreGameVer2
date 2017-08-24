@@ -9,6 +9,7 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -43,11 +44,11 @@ import static com.example.nguynqucvit.learnmoregamever2.fragment.BaseFragment.DE
 
 public class FavoriteFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, GameRecyclerViewAdapter.OnItemClickListener, GameRecyclerViewAdapter.OnItemLongClickListener {
     public static final String TAG = "FavoriteFragment";
-    private MySQLiteOpenHelper mySQLiteOpenHelper;
-    private SQLiteCursorLoader cursorLoader;
-    private ArrayList<ItemGame> arrItemGame = new ArrayList<>();
-    private ArrayList<ItemGameFull> arrItemGameFull = new ArrayList<>();
-    private GameRecyclerViewAdapter gameRecyclerViewAdapter;
+    private MySQLiteOpenHelper mMySQLiteOpenHelper;
+    private SQLiteCursorLoader mCursorLoader;
+    private ArrayList<ItemGame> mArrItemGame = new ArrayList<>();
+    private ArrayList<ItemGameFull> mArrItemGameFull = new ArrayList<>();
+    private GameRecyclerViewAdapter mGameRecyclerViewAdapter;
 
     public FavoriteFragment() {
         // Required empty public constructor
@@ -64,7 +65,7 @@ public class FavoriteFragment extends Fragment implements LoaderManager.LoaderCa
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mySQLiteOpenHelper = new MySQLiteOpenHelper(getContext());
+        mMySQLiteOpenHelper = new MySQLiteOpenHelper(getContext());
         getActivity().getSupportLoaderManager().initLoader(0, null, this);
         if (getArguments() != null) {
             //TODO:
@@ -83,20 +84,21 @@ public class FavoriteFragment extends Fragment implements LoaderManager.LoaderCa
 
     private void initViews(View view) {
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        gameRecyclerViewAdapter = new GameRecyclerViewAdapter(arrItemGame);
-        gameRecyclerViewAdapter.setOnItemClickListener(this);
-        gameRecyclerViewAdapter.setOnItemLongClickListener(this);
-        recyclerView.setAdapter(gameRecyclerViewAdapter);
+        mGameRecyclerViewAdapter = new GameRecyclerViewAdapter(mArrItemGame);
+        mGameRecyclerViewAdapter.setOnItemClickListener(this);
+        mGameRecyclerViewAdapter.setOnItemLongClickListener(this);
+        recyclerView.setAdapter(mGameRecyclerViewAdapter);
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         Log.i(TAG, "onCreateLoader");
         String sql = " SELECT * FROM " + MySQLiteOpenHelper.TABLE_GAME_2;
-        cursorLoader = new SQLiteCursorLoader(getContext(), mySQLiteOpenHelper, sql, null);
+        mCursorLoader = new SQLiteCursorLoader(getContext(), mMySQLiteOpenHelper, sql, null);
 
-        return cursorLoader;
+        return mCursorLoader;
     }
 
     @Override
@@ -120,8 +122,8 @@ public class FavoriteFragment extends Fragment implements LoaderManager.LoaderCa
                 public void handleMessage(Message msg) {
                     super.handleMessage(msg);
                     Cursor data = (Cursor) msg.obj;
-                    arrItemGame.clear();
-                    arrItemGameFull.clear();
+                    mArrItemGame.clear();
+                    mArrItemGameFull.clear();
                     data.moveToFirst();
                     while (!data.isAfterLast()) {
                         int id = data.getInt(data.getColumnIndex(ID));
@@ -134,14 +136,14 @@ public class FavoriteFragment extends Fragment implements LoaderManager.LoaderCa
                         String contentHtml = data.getString(data.getColumnIndex(CONTENT_HTML));
 
                         ItemGame itemGame = new ItemGame(id, imageUrl, name, type, date, views, detailsUrl);
-                        arrItemGame.add(itemGame);
-                        arrItemGameFull.add(new ItemGameFull(itemGame, contentHtml));
+                        mArrItemGame.add(itemGame);
+                        mArrItemGameFull.add(new ItemGameFull(itemGame, contentHtml));
                         data.moveToNext();
                     }
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            gameRecyclerViewAdapter.notifyDataSetChanged();
+                            mGameRecyclerViewAdapter.notifyDataSetChanged();
                         }
                     });
                 }
@@ -152,7 +154,7 @@ public class FavoriteFragment extends Fragment implements LoaderManager.LoaderCa
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        Toast.makeText(getContext(), "onLoaderReset", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), "onLoaderReset", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -160,9 +162,9 @@ public class FavoriteFragment extends Fragment implements LoaderManager.LoaderCa
         Toast.makeText(getContext(), position + "", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getContext(), GameContentActivity.class);
         intent.putExtra(DES_TAG, TAG);
-        intent.putExtra(CONTENT_HTML, arrItemGameFull.get(position).getContentHtml());
-        intent.putExtra(DETAILS_URL, arrItemGame.get(position).getDetailsUrl());
-        intent.putExtra(NAME, arrItemGame.get(position).getName());
+        intent.putExtra(CONTENT_HTML, mArrItemGameFull.get(position).getContentHtml());
+        intent.putExtra(DETAILS_URL, mArrItemGame.get(position).getDetailsUrl());
+        intent.putExtra(NAME, mArrItemGame.get(position).getName());
         startActivity(intent);
         getActivity().overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
     }
@@ -180,34 +182,21 @@ public class FavoriteFragment extends Fragment implements LoaderManager.LoaderCa
         actionDelete.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                String[] whereArgs = new String[]{arrItemGame.get(position).getTypeId() + ""};
-                cursorLoader.delete(TABLE_GAME_2, "id = ?", whereArgs);
+                String[] whereArgs = new String[]{mArrItemGame.get(position).getTypeId() + ""};
+                mCursorLoader.delete(TABLE_GAME_2, "id = ?", whereArgs);
                 return false;
             }
         });
         popupMenu.show();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.i(TAG, "onResume");
-    }
-
-    @Override
-    public void onPause() {
-
-        super.onPause();
-        Log.i(TAG, "onPause");
+    public SQLiteCursorLoader getmCursorLoader() {
+        return mCursorLoader;
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.i(TAG, "onDestroy");
-    }
-
-    public SQLiteCursorLoader getCursorLoader() {
-        return cursorLoader;
+        mCursorLoader.abandon();
     }
 }
